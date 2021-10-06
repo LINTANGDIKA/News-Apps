@@ -11,17 +11,17 @@ import android.os.Handler;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class Splash_Screen3 extends AppCompatActivity {
-    private AVLoadingIndicatorView avi;
+//    private AVLoadingIndicatorView avi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen3);
-        avi = findViewById(R.id.avi);
-        avi.setIndicator("BallClipRotateMultipleIndicator");
+//        avi = findViewById(R.id.avi);
+//        avi.setIndicator("BallClipRotateMultipleIndicator");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent Start =new Intent(Splash_Screen3.this, MainActivity.class);
+                Intent Start =new Intent(Splash_Screen3.this, Loginform.class);
                 startActivity(Start);
                 finish();
             }

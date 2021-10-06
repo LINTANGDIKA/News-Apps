@@ -12,13 +12,13 @@ import android.widget.ImageView;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class Splash_screen2 extends AppCompatActivity {
-    private AVLoadingIndicatorView avi;
+//    private AVLoadingIndicatorView avi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen2);
-        avi = findViewById(R.id.avi);
-        avi.setIndicator("BallClipRotateMultipleIndicator");
+//        avi = findViewById(R.id.avi);
+//        avi.setIndicator("BallClipRotateMultipleIndicator");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
