@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApps">
         <activity
+            android:name=".Splash_Screen3"
+            android:exported="true" />
+        <activity
+            android:name=".Splash_screen2"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity android:name=".Splash_screen">
