@@ -10,7 +10,7 @@
         android:background="@color/white"
         android:layout_width="match_parent"
         app:menu="@menu/menu_navigation"
-        app:itemIconTint="@drawable/selector"
+        app:labelVisibilityMode="unlabeled"
         android:layout_alignParentBottom="true"
-        android:layout_height="40dp"/>
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title=""
+        android:enabled="true"
+        android:title="Beranda"
         android:id="@+id/Home"
         android:icon="@drawable/home"/>
     <item
-        android:title=""
+        android:enabled="true"
+        android:title="Favorite"
         android:id="@+id/Favorite"
         android:icon="@drawable/love"/>
     <item
-        android:title=""
+        android:enabled="true"
+        android:title="Trending"
         android:id="@+id/Trnding"
         android:icon="@drawable/eksplore"/>
     <item
-        android:title=""
+        android:enabled="true"
+        android:title="Akun"
         android:id="@+id/User"
         android:icon="@drawable/user"/>
 

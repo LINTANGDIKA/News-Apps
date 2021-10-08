@@ -7,10 +7,10 @@
     tools:context=".MainActivity">
    <com.google.android.material.bottomnavigation.BottomNavigationView
        android:id="@+id/bottom_navigation"
+       app:labelVisibilityMode="unlabeled"
        android:background="@color/white"
        android:layout_width="match_parent"
-       app:itemIconTint="@drawable/selector"
        app:menu="@menu/menu_navigation"
        android:layout_alignParentBottom="true"
-       android:layout_height="40dp"/>
+       android:layout_height="wrap_content"/>
 </RelativeLayout>
