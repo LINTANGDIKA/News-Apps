@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Registerform"
+    tools:context=".RegisterForm"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -116,6 +116,7 @@
         android:hint="No telepon"
         android:paddingStart="12dp"
         android:paddingEnd="12dp" />
+
     <EditText
         android:id="@+id/ed_alamat"
         android:layout_width="302dp"
@@ -124,9 +125,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="11dp"
         android:background="@drawable/edittext"
-        android:hint="Alamat"
+        android:hint="Negara"
         android:paddingStart="12dp"
         android:paddingEnd="12dp" />
+
     <EditText
         android:id="@+id/ed_umur"
         android:layout_width="115dp"
@@ -139,23 +141,22 @@
         android:inputType="datetime"
         android:paddingStart="12dp"
         android:paddingEnd="12dp" />
-    <EditText
-        android:id="@+id/ed_Jenis"
+
+    <Spinner
+        android:background="@drawable/edittext"
+        android:id="@+id/spinner"
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_below="@id/ed_alamat"
-        android:layout_alignLeft="@+id/ed_alamat"
+        android:layout_alignLeft="@id/ed_alamat"
         android:layout_marginTop="11dp"
-        android:background="@drawable/edittext"
-        android:hint="Jenis kelamin"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp" />
+        android:spinnerMode="dropdown" />
 
     <Button
-        android:id="@+id/bt_register"
+        android:id="@+id/bt_register2"
         android:layout_width="225dp"
         android:layout_height="35dp"
-        android:layout_below="@id/ed_Jenis"
+        android:layout_below="@id/ed_umur"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/button"

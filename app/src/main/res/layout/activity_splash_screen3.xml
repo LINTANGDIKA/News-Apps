@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Splash_Screen3">
+    tools:context=".SplashScreen3">
     <ImageView
         android:id="@+id/logo"
         android:src="@drawable/nea_logo"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Loginform"
+    tools:context=".LoginForm"
     xmlns:Android="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -80,16 +80,15 @@
         android:fontFamily="@font/montserrat"
         android:text="LOGIN"
         android:textColor="@color/white" />
+
     <RelativeLayout
         android:background="@color/white"
         android:layout_marginTop="40dp"
         android:layout_below="@id/bt_login"
         android:layout_width="match_parent"
         android:layout_height="222dp">
-        <Button
+        <TextView
             android:id="@+id/bt_belumpunyaakun"
-            android:background="#00000000"
-            android:backgroundTint="#00000000"
             android:layout_marginTop="11dp"
             android:textColorHint="#9480FF"
             android:layout_centerHorizontal="true"
