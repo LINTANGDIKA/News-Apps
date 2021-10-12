@@ -5,43 +5,46 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".TrendingActivity">
+    tools:context=".HealthActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleview_favorite"
+        android:id="@+id/recycleview_health"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation_favorite"
-        android:layout_below="@id/navigation_up_favorite">
+        android:layout_above="@id/bottom_navigation_health"
+        android:layout_below="@id/navigation_up_health">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:visibility="visible"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_navigationup"
         app:elevation="2dp"
-        android:id="@+id/navigation_up_favorite"
+        android:id="@+id/navigation_up_health"
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="50dp">
+        android:layout_height="70dp">
         <RelativeLayout
-            android:id="@+id/navbar_favorite"
+            android:id="@+id/navbar_health"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="40dp">
 
             <ImageView
-                android:id="@+id/im_logo_header_favorite"
+                android:id="@+id/im_logo_header_health"
                 android:layout_width="50dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/nea_logo_gradient" />
 
             <ImageView
-                android:id="@+id/im_search_header_favorite"
+                android:id="@+id/im_search_header_health"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/search_button" />
         </RelativeLayout>
@@ -52,7 +55,7 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_favorite"
+        android:id="@+id/bottom_navigation_health"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

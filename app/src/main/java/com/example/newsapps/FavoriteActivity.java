@@ -6,16 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FavoriteActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
+    private ImageView search;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-        bottomNavigationView = (bottomNavigationView) = findViewById(R.id.bottom_navigation);
+       navigation();
+    }
+    private  void navigation(){
+        bottomNavigationView = (bottomNavigationView) = findViewById(R.id.bottom_navigation_favorite);
         bottomNavigationView.setSelectedItemId(R.id.Favorite);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -35,6 +41,15 @@ public class FavoriteActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
+            }
+        });
+        search = findViewById(R.id.im_search_header_favorite);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mulai = new Intent(FavoriteActivity.this, SearchActivity.class);
+                startActivity(mulai);
+                overridePendingTransition(R.anim.fade_out, R.anim.fade);
             }
         });
     }

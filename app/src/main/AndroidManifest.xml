@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.newsapps">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApps">
+        <activity
+            android:name=".OtomotifActivity"
+            android:exported="true" />
+        <activity
+            android:name=".HealthActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SportActivity"
+            android:exported="true" />
         <activity
             android:name=".SearchActivity"
             android:exported="true" />
@@ -31,12 +42,9 @@
             android:name=".SplashScreen3"
             android:exported="true" />
         <activity
-            android:name=".SplashScreen2"
-            android:exported="true" />
-        <activity
             android:name=".MainActivity"
             android:exported="true" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".SplashScreen2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

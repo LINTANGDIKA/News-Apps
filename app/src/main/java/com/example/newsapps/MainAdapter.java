@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
-    private Context context;
+    private  Context context;
     private List<ModelNews> model;
     public MainAdapter(Context context, List<ModelNews> model){
         this.context = context;
@@ -26,19 +26,19 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.newsitem,parent,false);
-        return new ViewHolder(view);
+        return  new ViewHolder(
+                         LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.newsitem, parent, false)
+        );
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ModelNews m = model.get(position);
-        holder.date.setText(m.getDate());
-        holder.judul.setText(m.getJudul());
-        Picasso.get().load(m.getImage())
+        holder.date.setText(model.get(position).getDate());
+        holder.title.setText(model.get(position).getJudul());
+        Picasso.get().load(model.get(position).getImage())
                 .fit()
-                .into(holder.imageView);
+                .into(holder.image);
     }
 
     @Override
@@ -47,14 +47,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-          TextView judul, date;
-          ImageView imageView;
-        public ViewHolder(@NonNull View itemView) {
+         private TextView title, date;
+         private  ImageView image;
+         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.im_gambar_item);
-            judul = itemView.findViewById(R.id.tv_judul_item);
+            image = itemView.findViewById(R.id.im_gambar_item);
+            title = itemView.findViewById(R.id.tv_judul_item);
             date = itemView.findViewById(R.id.tv_tanggal_item);
-
         }
     }
 }

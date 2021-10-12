@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:title="Berita utama"
+      android:id="@+id/Berita_utama"/>
+   <item
+       android:title="Sport"
+       android:id="@+id/Sport"/>
+    <item
+        android:title="Health"
+        android:id="@+id/Health"/>
+    <item
+        android:title="Business"
+        android:id="@+id/Otomotif"/>
+</menu>

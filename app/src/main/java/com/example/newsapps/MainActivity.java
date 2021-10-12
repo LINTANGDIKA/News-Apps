@@ -35,17 +35,17 @@ public class MainActivity extends AppCompatActivity {
     private String API = "https://newsapi.org/v2/top-headlines";
     private String Negara = "id";
     private String Api_key = "70c9c73cd4764e449efbf91d4fd3a065";
-    private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView, navigationup;
     private ImageView search;
     RecyclerView recyclerView;
-    private List<ModelNews> arrayList;
+    private List<ModelNews> beritautama;
     MainAdapter main;
     String judul, gambar, description, source, date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = findViewById(R.id.recycleview);
+        recyclerView = findViewById(R.id.recycleview_main);
         recyclerView.setHasFixedSize(true);
         getdata();
         navigation();
@@ -53,6 +53,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private  void navigation(){
+        navigationup = findViewById(R.id.navigation_up);
+        navigationup.setSelectedItemId(R.id.Berita_utama);
+        navigationup.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.Sport:
+                        startActivity(new Intent(getApplicationContext(), SportActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.Health:
+                        startActivity(new Intent(getApplicationContext(), HealthActivity.class));
+                        overridePendingTransition(0, 0);
+                        return  true;
+                    case R.id.Otomotif:
+                        startActivity(new Intent(getApplicationContext(), OtomotifActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
         bottomNavigationView = (bottomNavigationView) = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.Home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -86,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private  void getdata() {
-        arrayList = new ArrayList<>();
+        beritautama = new ArrayList<>();
         AndroidNetworking.get(API)
                 .addQueryParameter("country", Negara )
                 .addQueryParameter("apiKey", Api_key )
@@ -104,9 +126,9 @@ public class MainActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("source");
                                 date = resultObj.getString( "publishedAt");
-                                arrayList.add(new ModelNews(i, judul,description,date,source, gambar));
+                                beritautama.add(new ModelNews(i, judul,description,date,source, gambar));
                             }
-                            main = new MainAdapter(MainActivity.this, arrayList);
+                            main = new MainAdapter(MainActivity.this, beritautama);
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(main);
