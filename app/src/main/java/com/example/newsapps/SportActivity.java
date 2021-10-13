@@ -61,11 +61,23 @@ public class SportActivity extends AppCompatActivity {
                                 judul = resultObj.getString( "title");
                                 gambar = resultObj.getString( "urlToImage");
                                 description = resultObj.getString( "content");
-                                source = resultObj.getString("source");
+                                source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
                                 modelsport.add(new ModelNews(i, judul,description,date,source, gambar));
                             }
-                            sport = new MainAdapter(SportActivity.this, modelsport);
+                            sport = new MainAdapter(SportActivity.this, modelsport, new MainAdapter.Callback() {
+                                @Override
+                                public void Call(int position) {
+                                    ModelNews model = modelsport.get(position);
+                                    Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                                    intent.putExtra("title", model.getJudul());
+                                    intent.putExtra("description", model.getDescription());
+                                    intent.putExtra("date", model.getDate());
+                                    intent.putExtra("source", model.getSource());
+                                    intent.putExtra("image", model.getImage());
+                                    startActivity(intent);
+                                }
+                            });
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SportActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(sport);

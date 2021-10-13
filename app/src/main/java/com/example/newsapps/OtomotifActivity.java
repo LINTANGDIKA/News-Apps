@@ -60,11 +60,23 @@ public class OtomotifActivity extends AppCompatActivity {
                                 judul = resultObj.getString( "title");
                                 gambar = resultObj.getString( "urlToImage");
                                 description = resultObj.getString( "content");
-                                source = resultObj.getString("source");
+                                source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
                                 modelbusiness.add(new ModelNews(i, judul,description,date,source, gambar));
                             }
-                            business = new MainAdapter(OtomotifActivity.this, modelbusiness);
+                            business = new MainAdapter(OtomotifActivity.this, modelbusiness, new MainAdapter.Callback() {
+                                @Override
+                                public void Call(int position) {
+                                    ModelNews model = modelbusiness.get(position);
+                                    Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                                    intent.putExtra("title", model.getJudul());
+                                    intent.putExtra("description", model.getDescription());
+                                    intent.putExtra("date", model.getDate());
+                                    intent.putExtra("source", model.getSource());
+                                    intent.putExtra("image", model.getImage());
+                                    startActivity(intent);
+                                }
+                            });
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(OtomotifActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(business);

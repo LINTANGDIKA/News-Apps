@@ -20,7 +20,7 @@ public class LoginForm extends AppCompatActivity {
             public void onClick(View v) {
                 Intent start = new Intent(LoginForm.this, MainActivity.class);
                 startActivity(start);
-                overridePendingTransition(R.anim.kanan, R.anim.kiri);
+                overridePendingTransition(R.anim.atas, R.anim.fade);
             }
         });
         register.setOnClickListener(new View.OnClickListener() {

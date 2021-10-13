@@ -61,11 +61,23 @@ public class TrendingActivity extends AppCompatActivity {
                                 judul = resultObj.getString( "title");
                                 gambar = resultObj.getString( "urlToImage");
                                 description = resultObj.getString( "content");
-                                source = resultObj.getString("source");
+                                source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
                                 modelTrending.add(new ModelNews(i, judul,description,date,source, gambar));
                             }
-                            trending = new MainAdapter(TrendingActivity.this, modelTrending);
+                            trending = new MainAdapter(TrendingActivity.this, modelTrending, new MainAdapter.Callback() {
+                                @Override
+                                public void Call(int position) {
+                                    ModelNews model = modelTrending.get(position);
+                                    Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                                    intent.putExtra("title", model.getJudul());
+                                    intent.putExtra("description", model.getDescription());
+                                    intent.putExtra("date", model.getDate());
+                                    intent.putExtra("source", model.getSource());
+                                    intent.putExtra("image", model.getImage());
+                                    startActivity(intent);
+                                }
+                            });
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(TrendingActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(trending);
