@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="#F0F0F0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterForm"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/r_atas"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#9A70FD">
+
+        <ImageView
+            android:id="@+id/im_logoregister"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/nea_logo" />
+
+        <ImageView
+            android:id="@+id/bt_back"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="120dp"
+            android:layout_toLeftOf="@+id/im_logoregister"
+            android:src="@drawable/back_white" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_register"
+        android:text="Register"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/r_atas"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/ed_email"
+        android:layout_width="302dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/tv_register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext"
+        android:drawableLeft="@drawable/vc_email"
+        android:drawablePadding="12dp"
+        android:hint="Email"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+
+    <EditText
+        android:id="@+id/ed_username"
+        android:layout_width="302dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ed_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext"
+        android:drawableLeft="@drawable/username"
+        android:drawablePadding="12dp"
+        android:hint="Username"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+    <EditText
+        android:id="@+id/ed_password"
+        android:layout_width="302dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ed_username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext"
+        android:drawableLeft="@drawable/key"
+        android:drawablePadding="12dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+    <TextView
+        android:id="@+id/tv_data"
+        android:text="Data Personal"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/ed_password"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/ed_nama"
+        android:layout_width="302dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/tv_data"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext"
+        android:hint="Nama Lengkap"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+    <EditText
+        android:id="@+id/ed_no"
+        android:layout_width="302dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ed_nama"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext"
+        android:hint="No telepon"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+
+    <EditText
+        android:id="@+id/ed_alamat"
+        android:layout_width="302dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ed_no"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext"
+        android:hint="Negara"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+
+    <EditText
+        android:id="@+id/ed_umur"
+        android:layout_width="115dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ed_alamat"
+        android:layout_alignRight="@+id/ed_alamat"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext"
+        android:hint="Umur"
+        android:inputType="datetime"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+
+    <Spinner
+        android:background="@drawable/edittext"
+        android:id="@+id/spinner"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ed_alamat"
+        android:layout_alignLeft="@id/ed_alamat"
+        android:layout_marginTop="11dp"
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:id="@+id/bt_register2"
+        android:layout_width="225dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/ed_umur"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/montserrat"
+        android:text="register"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

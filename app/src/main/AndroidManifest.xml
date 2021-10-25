@@ -9,7 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApps">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".UserActivity"
+            android:exported="true" />
+        <activity
+            android:name=".TrendingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".FavoriteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RegisterForm"
+            android:exported="true" />
+        <activity
+            android:name=".LoginForm"
+            android:exported="true" />
+        <activity
+            android:name=".SplashScreen3"
+            android:exported="true" />
+        <activity
+            android:name=".SplashScreen2"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
