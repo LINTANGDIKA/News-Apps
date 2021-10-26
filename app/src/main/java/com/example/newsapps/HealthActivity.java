@@ -62,7 +62,7 @@ public class HealthActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
-                                modelhealth.add(new ModelNews(i, judul,description,date,source, gambar));
+                                modelhealth.add(new ModelNews(judul,description,date,source, gambar));
                             }
                             health = new MainAdapter(HealthActivity.this, modelhealth, new MainAdapter.Callback() {
                                 @Override

@@ -63,7 +63,7 @@ public class SportActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
-                                modelsport.add(new ModelNews(i, judul,description,date,source, gambar));
+                                modelsport.add(new ModelNews(judul,description,date,source, gambar));
                             }
                             sport = new MainAdapter(SportActivity.this, modelsport, new MainAdapter.Callback() {
                                 @Override

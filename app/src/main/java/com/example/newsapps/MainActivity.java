@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
-                                beritautama.add(new ModelNews(i, judul,description,date,source, gambar));
+                                beritautama.add(new ModelNews(judul,description,date,source, gambar));
                             }
                             main = new MainAdapter(MainActivity.this, beritautama, new MainAdapter.Callback() {
                                 @Override
@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                      intent.putExtra("date", model.getDate());
                                      intent.putExtra("source", model.getSource());
                                      intent.putExtra("image", model.getImage());
+                                     intent.putExtra("id", model.getId());
                                      startActivity(intent);
 
                                 }

@@ -63,7 +63,7 @@ public class TrendingActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
-                                modelTrending.add(new ModelNews(i, judul,description,date,source, gambar));
+                                modelTrending.add(new ModelNews( judul,description,date,source, gambar));
                             }
                             trending = new MainAdapter(TrendingActivity.this, modelTrending, new MainAdapter.Callback() {
                                 @Override

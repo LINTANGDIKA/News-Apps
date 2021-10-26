@@ -2,6 +2,8 @@ package com.example.newsapps;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +13,38 @@ import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class FavoriteActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private ImageView search;
+    Realm realm;
+    RealmHelper realmHelper;
+    RecyclerView recyclerView;
+    FavoriteAdapter favoriteAdapter;
+    List<ModelNews> modelNews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-       navigation();
+        recyclerView = findViewById(R.id.recycleview_favorite);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        // Setup Realm
+        RealmConfiguration configuration = new RealmConfiguration.Builder().allowWritesOnUiThread(true).build();
+        realm = Realm.getInstance(configuration);
+
+        realmHelper = new RealmHelper(realm);
+        modelNews = new ArrayList<>();
+
+        modelNews = realmHelper.getAllNews();
+
+        show();
+        navigation();
     }
     private  void navigation(){
         bottomNavigationView = (bottomNavigationView) = findViewById(R.id.bottom_navigation_favorite);
@@ -52,5 +78,15 @@ public class FavoriteActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_out, R.anim.fade);
             }
         });
+    }
+    protected void onRestart() {
+        super.onRestart();
+        favoriteAdapter.notifyDataSetChanged();
+        show();
+    }
+
+    public void show(){
+        favoriteAdapter = new FavoriteAdapter(this, modelNews);
+        recyclerView.setAdapter(favoriteAdapter);
     }
 }

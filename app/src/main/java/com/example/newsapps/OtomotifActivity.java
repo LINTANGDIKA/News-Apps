@@ -62,7 +62,7 @@ public class OtomotifActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
-                                modelbusiness.add(new ModelNews(i, judul,description,date,source, gambar));
+                                modelbusiness.add(new ModelNews(judul,description,date,source, gambar));
                             }
                             business = new MainAdapter(OtomotifActivity.this, modelbusiness, new MainAdapter.Callback() {
                                 @Override
