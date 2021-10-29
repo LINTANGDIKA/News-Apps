@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Ui;
 
 import android.app.Application;
 

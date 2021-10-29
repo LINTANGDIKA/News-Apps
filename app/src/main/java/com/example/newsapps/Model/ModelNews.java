@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Model;
 
 import android.content.Intent;
 
@@ -12,9 +12,11 @@ public class ModelNews extends RealmObject {
     private String description;
     private String date;
     private String source;
-    public ModelNews(){}
-    public ModelNews(String Judul, String description, String date, String source, String image) {
+    public ModelNews() {
+    }
+    public ModelNews(Integer id ,String Judul, String description, String date, String source, String image) {
         this.Judul = Judul;
+        this.id = id;
         this.description = description;
         this.date = date;
         this.source = source;

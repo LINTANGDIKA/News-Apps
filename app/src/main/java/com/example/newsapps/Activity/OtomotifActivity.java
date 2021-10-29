@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,13 +10,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.newsapps.Adapter.MainAdapter;
+import com.example.newsapps.Model.ModelNews;
+import com.example.newsapps.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
@@ -24,30 +26,30 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class TrendingActivity extends AppCompatActivity {
-    private BottomNavigationView bottomNavigationView;
+public class OtomotifActivity extends AppCompatActivity {
+    private BottomNavigationView bottomNavigationView, navigationup;
     private ImageView search;
-    private ArrayList<ModelNews> modelTrending;
+    private ArrayList<ModelNews> modelbusiness;
     private String judul, gambar, description, source, date;
     private RecyclerView recyclerView;
-    private MainAdapter trending;
-    private String Trending = "entertainment";
+    private MainAdapter business;
+    private String Business = "business";
     private String API = "https://newsapi.org/v2/top-headlines";
     private String Api_key = "70c9c73cd4764e449efbf91d4fd3a065";
     private String Negara = "id";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trending);
-        recyclerView = findViewById(R.id.recycleview_trending);
+        setContentView(R.layout.activity_otomotif);
+        recyclerView = findViewById(R.id.recycleview_otomotif);
         getData();
         navigation();
     }
     private void getData() {
-        modelTrending = new ArrayList<>();
+        modelbusiness = new ArrayList<>();
         AndroidNetworking.get(API)
                 .addQueryParameter("country", Negara )
-                .addQueryParameter("category", Trending)
+                .addQueryParameter("category", Business)
                 .addQueryParameter("apiKey", Api_key )
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -63,13 +65,14 @@ public class TrendingActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
-                                modelTrending.add(new ModelNews( judul,description,date,source, gambar));
+                                modelbusiness.add(new ModelNews(i, judul,description,date,source, gambar));
                             }
-                            trending = new MainAdapter(TrendingActivity.this, modelTrending, new MainAdapter.Callback() {
+                            business = new MainAdapter(OtomotifActivity.this, modelbusiness, new MainAdapter.Callback() {
                                 @Override
                                 public void Call(int position) {
-                                    ModelNews model = modelTrending.get(position);
+                                    ModelNews model = modelbusiness.get(position);
                                     Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                                    intent.putExtra("id", model.getId());
                                     intent.putExtra("title", model.getJudul());
                                     intent.putExtra("description", model.getDescription());
                                     intent.putExtra("date", model.getDate());
@@ -78,9 +81,9 @@ public class TrendingActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             });
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(TrendingActivity.this);
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(OtomotifActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setAdapter(trending);
+                            recyclerView.setAdapter(business);
                         } catch (Exception e) {
                             Log.d("Error: ", e.toString());
                         }
@@ -93,8 +96,30 @@ public class TrendingActivity extends AppCompatActivity {
                 });
     }
     private  void navigation(){
-        bottomNavigationView = (bottomNavigationView) = findViewById(R.id.bottom_navigation_trending);
-        bottomNavigationView.setSelectedItemId(R.id.Trnding);
+        navigationup = findViewById(R.id.navigation_up_otomotif);
+        navigationup.setSelectedItemId(R.id.Otomotif);
+        navigationup.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.Berita_utama:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.Sport:
+                        startActivity(new Intent(getApplicationContext(), SportActivity.class));
+                        overridePendingTransition(0, 0);
+                        return  true;
+                    case R.id.Health:
+                        startActivity(new Intent(getApplicationContext(), HealthActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
+        bottomNavigationView = (bottomNavigationView) = findViewById(R.id.bottom_navigation_otomotif);
+        bottomNavigationView.setSelectedItemId(R.id.Home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -103,8 +128,8 @@ public class TrendingActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), FavoriteActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.Home:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    case R.id.Trnding:
+                        startActivity(new Intent(getApplicationContext(), TrendingActivity.class));
                         overridePendingTransition(0, 0);
                         return  true;
                     case R.id.User:
@@ -115,13 +140,13 @@ public class TrendingActivity extends AppCompatActivity {
                 return false;
             }
         });
-        search = findViewById(R.id.im_search_header_trending);
+        search = findViewById(R.id.im_search_header_otomotif);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mulai = new Intent(TrendingActivity.this, SearchActivity.class);
+                Intent mulai = new Intent(OtomotifActivity.this, SearchActivity.class);
                 startActivity(mulai);
-                overridePendingTransition(R.anim.fade_out, R.anim.fade);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
     }

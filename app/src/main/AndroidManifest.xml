@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".Ui.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,42 +13,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApps">
         <activity
-            android:name=".DetailActivity"
+            android:name=".Activity.DetailActivity"
             android:exported="true" />
         <activity
-            android:name=".OtomotifActivity"
+            android:name=".Activity.OtomotifActivity"
             android:exported="true" />
         <activity
-            android:name=".HealthActivity"
+            android:name=".Activity.HealthActivity"
             android:exported="true" />
         <activity
-            android:name=".SportActivity"
+            android:name=".Activity.SportActivity"
             android:exported="true" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".Activity.SearchActivity"
             android:exported="true" />
         <activity
-            android:name=".UserActivity"
+            android:name=".Activity.UserActivity"
             android:exported="true" />
         <activity
-            android:name=".TrendingActivity"
+            android:name=".Activity.TrendingActivity"
             android:exported="true" />
         <activity
-            android:name=".FavoriteActivity"
+            android:name=".Activity.FavoriteActivity"
             android:exported="true" />
         <activity
-            android:name=".RegisterForm"
+            android:name=".Ui.RegisterForm"
             android:exported="true" />
         <activity
-            android:name=".LoginForm"
+            android:name=".Ui.LoginForm"
             android:exported="true" />
         <activity
-            android:name=".SplashScreen3"
+            android:name=".Splash.SplashScreen3"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="true" />
-        <activity android:name=".SplashScreen2">
+        <activity android:name=".Splash.SplashScreen2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

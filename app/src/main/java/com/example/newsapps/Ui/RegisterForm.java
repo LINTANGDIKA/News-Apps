@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import com.example.newsapps.R;
 
 public class RegisterForm extends AppCompatActivity {
     private  ImageView back;

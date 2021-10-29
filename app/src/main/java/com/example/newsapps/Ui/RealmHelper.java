@@ -1,14 +1,18 @@
-package com.example.newsapps;
+package com.example.newsapps.Ui;
 
 import android.util.Log;
+import android.view.Display;
 
+import com.example.newsapps.Model.ModelNews;
+
+import java.util.Collections;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class RealmHelper {
-
+    List<ModelNews> storeList;
     Realm realm;
     public RealmHelper(Realm realm) { this.realm = realm; }
 
@@ -43,8 +47,16 @@ public class RealmHelper {
             }
         });
     }
-//    public ModelNews getIdNews(Integer id){
-//        ModelNews results = realm.where(ModelNews.class).equalTo("id",id).findFirst();
-//        return results;
-//    }
+//public void delete(ModelNews modelNews){
+//    final RealmResults<ModelNews> model = realm.where(ModelNews.class).equalTo("description", modelNews.getDescription()).findAll();
+//    realm.executeTransaction(new Realm.Transaction() {
+//        @Override
+//        public void execute(Realm realm) {
+//            model.deleteAllFromRealm();
+//            final RealmResults<ModelNews> allItems = realm.where(ModelNews.class).findAll();
+////            storeList = realm.copyFromRealm(allItems);;
+////            Collections.sort(storeList);
+//        }
+//    });
+//}
 }

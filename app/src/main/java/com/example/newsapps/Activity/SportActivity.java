@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.newsapps.Adapter.MainAdapter;
+import com.example.newsapps.Model.ModelNews;
+import com.example.newsapps.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
@@ -63,7 +66,7 @@ public class SportActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
-                                modelsport.add(new ModelNews(judul,description,date,source, gambar));
+                                modelsport.add(new ModelNews(i,  judul,description,date,source, gambar));
                             }
                             sport = new MainAdapter(SportActivity.this, modelsport, new MainAdapter.Callback() {
                                 @Override
@@ -71,6 +74,7 @@ public class SportActivity extends AppCompatActivity {
                                     ModelNews model = modelsport.get(position);
                                     Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
                                     intent.putExtra("title", model.getJudul());
+                                    intent.putExtra("id", model.getId());
                                     intent.putExtra("description", model.getDescription());
                                     intent.putExtra("date", model.getDate());
                                     intent.putExtra("source", model.getSource());
@@ -144,7 +148,7 @@ public class SportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mulai = new Intent(SportActivity.this, SearchActivity.class);
                 startActivity(mulai);
-                overridePendingTransition(R.anim.fade_out, R.anim.fade);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
     }
