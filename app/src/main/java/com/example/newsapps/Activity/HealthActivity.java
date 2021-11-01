@@ -61,7 +61,7 @@ public class HealthActivity extends AppCompatActivity {
                                 JSONObject resultObj = resultArray.getJSONObject(i);
                                 judul = resultObj.getString( "title");
                                 gambar = resultObj.getString( "urlToImage");
-                                description = resultObj.getString( "content");
+                                description = resultObj.getString( "description");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
                                 modelhealth.add(new ModelNews(i, judul,description,date,source, gambar));

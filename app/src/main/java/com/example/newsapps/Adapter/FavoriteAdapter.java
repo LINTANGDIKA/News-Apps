@@ -84,14 +84,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             });
         }
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuItem Delete = menu.add(Menu.NONE, 1, 1, "Delete");
+            MenuItem Delete = menu.add(Menu.NONE, 1, 1, "Hapus");
             Delete.setOnMenuItemClickListener(this::onMenuItemClick);
         }
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case 1:
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setMessage("Are you sure you want to delete data?")
+                    builder.setMessage("Apakah kamu mau menghapus item ini?")
                             .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -107,8 +107,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                                 }
                             })
                             //Set your icon here
-                            .setTitle("Delete data")
-                            .setIcon(R.mipmap.ic_launcher);
+                            .setTitle("Hapus data")
+                            .setIcon(R.drawable.nea_logo_gradient);
                     AlertDialog alert = builder.create();
                     alert.show();//showing the dialog
 
