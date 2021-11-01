@@ -1,19 +1,18 @@
-package com.example.newsapps;
+package com.example.newsapps.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.newsapps.Model.ModelNews;
+import com.example.newsapps.R;
+import com.example.newsapps.Ui.RealmHelper;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -25,7 +24,6 @@ public class DetailActivity extends AppCompatActivity {
     private Bundle bundle;
     Realm realm;
     RealmHelper realmHelper;
-    ModelNews modelNews;
     private List<ModelNews> modelNewsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +43,8 @@ public class DetailActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
         Realm.init(DetailActivity.this);
         RealmConfiguration configuration = new RealmConfiguration.Builder().allowWritesOnUiThread(true).build();
+        realm = Realm.getInstance(configuration);
+        realmHelper = new RealmHelper(realm);
         if (bundle  != null){
             judul = bundle.getString("title");
             deskripsi = bundle.getString("description");
@@ -52,6 +52,7 @@ public class DetailActivity extends AppCompatActivity {
             tanggal = bundle.getString("date");
             image = bundle.getString("image");
             id = bundle.getInt("id");
+
             realm = Realm.getInstance(configuration);
             title.setText(judul);
             description.setText(deskripsi);
@@ -65,10 +66,9 @@ public class DetailActivity extends AppCompatActivity {
             star_detail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    realmHelper = new RealmHelper(realm);
-                    realmHelper.save(new ModelNews(judul,deskripsi,tanggal,sumber, image));
-                    Log.d("a","a" + realm);
-                    Toast.makeText(DetailActivity.this, "Berhasil Disimpan di Favorit :)", Toast.LENGTH_SHORT).show();
+                    ModelNews model = new ModelNews(id, judul, deskripsi,tanggal, sumber, image);
+                    realmHelper.save(model);
+                    Toast.makeText(getApplicationContext(), "Halo", Toast.LENGTH_SHORT).show();
                 }
             });
         }

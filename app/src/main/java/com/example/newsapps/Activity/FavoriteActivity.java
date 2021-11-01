@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.newsapps.Adapter.FavoriteAdapter;
+import com.example.newsapps.Model.ModelNews;
+import com.example.newsapps.R;
+import com.example.newsapps.Ui.RealmHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -34,7 +38,6 @@ public class FavoriteActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleview_favorite);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        // Setup Realm
         RealmConfiguration configuration = new RealmConfiguration.Builder().allowWritesOnUiThread(true).build();
         realm = Realm.getInstance(configuration);
 
@@ -86,7 +89,21 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     public void show(){
-        favoriteAdapter = new FavoriteAdapter(this, modelNews);
+        favoriteAdapter = new FavoriteAdapter(getApplicationContext(), modelNews, new FavoriteAdapter.Callback() {
+            @Override
+            public void onClick(int position) {
+              ModelNews model =  modelNews.get(position);
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                intent.putExtra("title", model.getJudul());
+                intent.putExtra("description", model.getDescription());
+                intent.putExtra("date", model.getDate());
+                intent.putExtra("source", model.getSource());
+                intent.putExtra("image", model.getImage());
+                intent.putExtra("id", model.getId());
+                startActivity(intent);
+
+            }
+        });
         recyclerView.setAdapter(favoriteAdapter);
     }
 }

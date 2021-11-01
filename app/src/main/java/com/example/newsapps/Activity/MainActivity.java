@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +22,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.newsapps.Adapter.MainAdapter;
+import com.example.newsapps.Model.ModelNews;
+import com.example.newsapps.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private String Api_key = "70c9c73cd4764e449efbf91d4fd3a065";
     private BottomNavigationView bottomNavigationView, navigationup;
     private ImageView search;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private List<ModelNews> beritautama;
     MainAdapter main;
     String judul, gambar, description, source, date;
@@ -49,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         getdata();
         navigation();
-
-
     }
     private  void navigation(){
         navigationup = findViewById(R.id.navigation_up);
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mulai = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(mulai);
-                overridePendingTransition(R.anim.fade_out, R.anim.fade);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
     }
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
-                                beritautama.add(new ModelNews(judul,description,date,source, gambar));
+                                beritautama.add(new ModelNews(i, judul,description,date,source, gambar));
                             }
                             main = new MainAdapter(MainActivity.this, beritautama, new MainAdapter.Callback() {
                                 @Override

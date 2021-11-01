@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,8 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.newsapps.Activity.MainActivity;
+import com.example.newsapps.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,10 +23,11 @@ import org.json.JSONObject;
 public class LoginForm extends AppCompatActivity {
     private  Button register, login;
     private EditText ed_email, ed_password;
+    private String API = "http://192.168.6.191:8000";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loginform);
+        setContentView( R.layout.activity_loginform);
         register = findViewById(R.id.bt_register);
         login = findViewById(R.id.bt_login);
         ed_email = findViewById(R.id.ed_email);
@@ -35,11 +38,10 @@ public class LoginForm extends AppCompatActivity {
                 String email = ed_email.getText().toString();
                 String password = ed_password.getText().toString();
                 if(email.trim().isEmpty() && password.trim().isEmpty()){
-                    Toast.makeText(getApplicationContext(), "Tolong Di isi Formnya!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Tolong Di isi Formnya! ", Toast.LENGTH_SHORT).show();
                 } else {
                     login(email , password);
                 }
-
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +53,7 @@ public class LoginForm extends AppCompatActivity {
         });
     }
     public void login(String email, String password){
-        AndroidNetworking.post("http://192.168.1.8:8000/login")
+        AndroidNetworking.post("http://192.168.1.9:8000/login")
                 .addBodyParameter("email", email)
                 .addBodyParameter("password", password)
                 .setTag("test")
@@ -67,7 +69,7 @@ public class LoginForm extends AppCompatActivity {
                                 Toast.makeText(LoginForm.this, message + " :) ", Toast.LENGTH_SHORT).show();
                                 Intent start = new Intent(LoginForm.this, MainActivity.class);
                                 startActivity(start);
-                                overridePendingTransition(R.anim.atas, R.anim.fade);
+                                overridePendingTransition(R.anim.fade, R.anim.fade);
                             } else if(status.contains("Gagal")){
                                 Toast.makeText(LoginForm.this, message + " :( ", Toast.LENGTH_SHORT).show();
                             }
@@ -84,6 +86,5 @@ public class LoginForm extends AppCompatActivity {
                         Log.d(""," "+ error.getResponse());
                     }
                 });
-
     }
 }

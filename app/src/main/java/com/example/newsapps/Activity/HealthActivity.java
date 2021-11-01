@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,37 +16,39 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.newsapps.Adapter.MainAdapter;
+import com.example.newsapps.Model.ModelNews;
+import com.example.newsapps.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class OtomotifActivity extends AppCompatActivity {
+public class HealthActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView, navigationup;
     private ImageView search;
-    private ArrayList<ModelNews> modelbusiness;
+    private ArrayList<ModelNews> modelhealth;
     private String judul, gambar, description, source, date;
     private RecyclerView recyclerView;
-    private MainAdapter business;
-    private String Business = "business";
+    private MainAdapter health;
+    private String Health= "health";
     private String API = "https://newsapi.org/v2/top-headlines";
     private String Api_key = "70c9c73cd4764e449efbf91d4fd3a065";
     private String Negara = "id";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_otomotif);
-        recyclerView = findViewById(R.id.recycleview_otomotif);
+        setContentView(R.layout.activity_health);
+        recyclerView = findViewById(R.id.recycleview_health);
         getData();
         navigation();
     }
     private void getData() {
-        modelbusiness = new ArrayList<>();
+        modelhealth = new ArrayList<>();
         AndroidNetworking.get(API)
                 .addQueryParameter("country", Negara )
-                .addQueryParameter("category", Business)
+                .addQueryParameter("category", Health )
                 .addQueryParameter("apiKey", Api_key )
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -62,14 +64,15 @@ public class OtomotifActivity extends AppCompatActivity {
                                 description = resultObj.getString( "content");
                                 source = resultObj.getString("author");
                                 date = resultObj.getString( "publishedAt");
-                                modelbusiness.add(new ModelNews(judul,description,date,source, gambar));
+                                modelhealth.add(new ModelNews(i, judul,description,date,source, gambar));
                             }
-                            business = new MainAdapter(OtomotifActivity.this, modelbusiness, new MainAdapter.Callback() {
+                            health = new MainAdapter(HealthActivity.this, modelhealth, new MainAdapter.Callback() {
                                 @Override
                                 public void Call(int position) {
-                                    ModelNews model = modelbusiness.get(position);
+                                    ModelNews model = modelhealth.get(position);
                                     Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
                                     intent.putExtra("title", model.getJudul());
+                                    intent.putExtra("id", model.getId());
                                     intent.putExtra("description", model.getDescription());
                                     intent.putExtra("date", model.getDate());
                                     intent.putExtra("source", model.getSource());
@@ -77,9 +80,9 @@ public class OtomotifActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             });
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(OtomotifActivity.this);
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HealthActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setAdapter(business);
+                            recyclerView.setAdapter(health);
                         } catch (Exception e) {
                             Log.d("Error: ", e.toString());
                         }
@@ -92,8 +95,8 @@ public class OtomotifActivity extends AppCompatActivity {
                 });
     }
     private  void navigation(){
-        navigationup = findViewById(R.id.navigation_up_otomotif);
-        navigationup.setSelectedItemId(R.id.Otomotif);
+        navigationup = findViewById(R.id.navigation_up_health);
+        navigationup.setSelectedItemId(R.id.Health);
         navigationup.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -106,15 +109,15 @@ public class OtomotifActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), SportActivity.class));
                         overridePendingTransition(0, 0);
                         return  true;
-                    case R.id.Health:
-                        startActivity(new Intent(getApplicationContext(), HealthActivity.class));
+                    case R.id.Otomotif:
+                        startActivity(new Intent(getApplicationContext(), OtomotifActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;
             }
         });
-        bottomNavigationView = (bottomNavigationView) = findViewById(R.id.bottom_navigation_otomotif);
+        bottomNavigationView = (bottomNavigationView) = findViewById(R.id.bottom_navigation_health);
         bottomNavigationView.setSelectedItemId(R.id.Home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -136,13 +139,13 @@ public class OtomotifActivity extends AppCompatActivity {
                 return false;
             }
         });
-        search = findViewById(R.id.im_search_header_otomotif);
+        search = findViewById(R.id.im_search_header_health);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mulai = new Intent(OtomotifActivity.this, SearchActivity.class);
+                Intent mulai = new Intent(HealthActivity.this, SearchActivity.class);
                 startActivity(mulai);
-                overridePendingTransition(R.anim.fade_out, R.anim.fade);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
     }

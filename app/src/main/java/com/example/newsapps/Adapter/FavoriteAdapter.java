@@ -1,4 +1,4 @@
-package com.example.newsapps;
+package com.example.newsapps.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,6 +18,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.newsapps.Model.ModelNews;
+import com.example.newsapps.R;
+import com.example.newsapps.Ui.RealmHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -27,17 +30,16 @@ import io.realm.RealmConfiguration;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private Context context;
-    MainAdapter.Callback callback;
-    View viewku;
+    public Callback callback;
     Realm realm;
     private List<ModelNews> model;
     public interface Callback {
         void onClick(int position);
     }
-    public FavoriteAdapter( Context context, List<ModelNews> model) {
+    public FavoriteAdapter( Context context, List<ModelNews> model, Callback callback) {
+        this.callback = callback;
         this.context = context;
         this.model = model;
-
     }
     RealmConfiguration configuration = new RealmConfiguration.Builder().allowWritesOnUiThread(true).build();
     @NonNull
@@ -66,7 +68,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         private RelativeLayout relativeLayout;
         private TextView title, date;
         private  ImageView image;
-        int posku;
+        Integer posku;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnCreateContextMenuListener(this::onCreateContextMenu);
@@ -77,26 +79,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    callback.Call(getAdapterPosition());
+                    callback.onClick(getAdapterPosition());
                 }
             });
         }
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuItem Edit = menu.add(Menu.NONE, 1, 1, "Edit");
-            MenuItem Delete = menu.add(Menu.NONE, 2, 2, "Delete");
-            Edit.setOnMenuItemClickListener(this::onMenuItemClick);
+            MenuItem Delete = menu.add(Menu.NONE, 1, 1, "Delete");
             Delete.setOnMenuItemClickListener(this::onMenuItemClick);
         }
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case 1:
-                    //Do stuff
-                    Toast.makeText(itemView.getContext(), "Edit data di posisi "+posku, Toast.LENGTH_SHORT).show();
-
-                    break;
-
-                case 2:
-                    //Delete data, butuh konfirmasi dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
                     builder.setMessage("Are you sure you want to delete data?")
                             .setCancelable(false)
