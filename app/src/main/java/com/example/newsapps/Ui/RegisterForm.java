@@ -68,7 +68,7 @@ public class RegisterForm extends AppCompatActivity {
                 }
                 else {
 //                    register(email, password, username, nama, noTelp, alamat, umur, gender);
-                    Log.d("","" + email + password + username + nama + noTelp + alamat + umur + gender);
+                    Log.d("","data : " + email + password + username + nama + noTelp + alamat + umur + gender);
                 }
             }
         });

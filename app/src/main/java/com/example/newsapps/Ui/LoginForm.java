@@ -23,7 +23,6 @@ import org.json.JSONObject;
 public class LoginForm extends AppCompatActivity {
     private  Button register, login;
     private EditText ed_email, ed_password;
-    private String API = "http://192.168.6.191:8000";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
