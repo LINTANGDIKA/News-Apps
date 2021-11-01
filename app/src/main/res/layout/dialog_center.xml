@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="#00FFFFFF"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_radius_putih"
+        android:layout_width="260dp"
+        android:layout_height="175dp">
+
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/toast_img2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/smile" />
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:id="@+id/txt_selamat"
+            android:textSize="16dp"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toast_img2"
+            android:text="Selamat!" />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/txt_pesan"
+            android:textSize="10dp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_selamat"
+            android:text="Login telah berhasil" />
+        <View
+            android:layout_marginTop="5dp"
+            android:id="@+id/view"
+            android:layout_below="@id/txt_pesan"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+
+            android:layout_marginTop="5dp"
+            android:id="@+id/txtyes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view"
+            android:layout_centerInParent="true"
+            android:text="Ayo mulai"
+            android:textColor="@color/purple_200"
+            android:textSize="16dp" />
+
+
+    </RelativeLayout>
+</RelativeLayout>

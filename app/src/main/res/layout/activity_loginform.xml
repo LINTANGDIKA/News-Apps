@@ -2,6 +2,7 @@
 <RelativeLayout android:background="@drawable/gradient"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Ui.LoginForm"

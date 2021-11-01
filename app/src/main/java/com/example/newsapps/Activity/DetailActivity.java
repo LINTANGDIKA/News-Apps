@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +15,8 @@ import com.example.newsapps.R;
 import com.example.newsapps.Ui.RealmHelper;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+import java.util.zip.Inflater;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -32,7 +36,6 @@ public class DetailActivity extends AppCompatActivity {
         bundle();
         navigation();
     }
-
     private void bundle() {
         img = findViewById(R.id.im_detail);
         title = findViewById(R.id.judul_detail);
@@ -68,10 +71,19 @@ public class DetailActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     ModelNews model = new ModelNews(id, judul, deskripsi,tanggal, sumber, image);
                     realmHelper.save(model);
-                    Toast.makeText(getApplicationContext(), "Halo", Toast.LENGTH_SHORT).show();
+                    toast();
                 }
             });
         }
+    }
+
+    private void toast() {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.root_toast));
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 
     private void navigation() {
