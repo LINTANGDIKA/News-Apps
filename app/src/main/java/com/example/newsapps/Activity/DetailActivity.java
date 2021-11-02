@@ -66,6 +66,8 @@ public class DetailActivity extends AppCompatActivity {
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher_round)
                     .into(img);
+
+
             star_detail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

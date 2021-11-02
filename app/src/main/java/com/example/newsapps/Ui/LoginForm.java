@@ -1,58 +1,85 @@
 package com.example.newsapps.Ui;
-
+import static android.content.ContentValues.TAG;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.newsapps.Activity.MainActivity;
 import com.example.newsapps.R;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginForm extends AppCompatActivity {
-    private  Button register, login;
+    private TextView textView;
+    private Button register, login;
+    private GoogleSignInClient mGoogleSignInClient;
+    private final static  int RC_SIGN_IN = 123;
+    private ImageButton verify;
+    private FirebaseAuth mAuth;
+    private Dialog dialog;
     private EditText ed_email, ed_password;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView( R.layout.activity_loginform);
+        dialog = new Dialog(this);
         register = findViewById(R.id.bt_register);
         login = findViewById(R.id.bt_login);
         ed_email = findViewById(R.id.ed_email);
         ed_password = findViewById(R.id.ed_password);
-        login.setOnClickListener(new View.OnClickListener() {
+        verify = findViewById(R.id.imb_google);
+        verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = ed_email.getText().toString();
-                String password = ed_password.getText().toString();
-                if(email.trim().isEmpty() && password.trim().isEmpty()){
-                    Toast.makeText(getApplicationContext(), "Tolong Di isi Formnya! ", Toast.LENGTH_SHORT).show();
-                } else {
-                    login(email , password);
-                }
+                signIn();
             }
         });
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginForm.this, RegisterForm.class);
-                startActivity(intent);
-            }
-        });
+        mAuth = FirebaseAuth.getInstance();
+        navigation();
+        createRequest();
     }
     public void login(String email, String password){
-        AndroidNetworking.post("http://192.168.1.9:8000/login")
+        AndroidNetworking.post("https://news-appapi.herokuapp.com/api/login")
                 .addBodyParameter("email", email)
                 .addBodyParameter("password", password)
                 .setTag("test")
@@ -85,5 +112,105 @@ public class LoginForm extends AppCompatActivity {
                         Log.d(""," "+ error.getResponse());
                     }
                 });
+    }
+
+
+    private void createRequest() {
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+    }
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            Log.d("","" + task + data + ApiException.class);
+
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                firebaseAuthWithGoogle(account.getIdToken());
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.w(TAG, "Google sign in failed", e);
+                Log.d("", "Google : " + e);
+                Toast.makeText(this, "gagal login", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(LoginForm.this, "sorry gagal login", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+
+    private void navigation() {
+        register = findViewById(R.id.bt_register);
+        login = findViewById(R.id.bt_login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toast();
+            }
+        });
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginForm.this, RegisterForm.class);
+                startActivity(intent);
+            }
+        });
+    }
+    private void toast() {
+        dialog.setContentView(R.layout.dialog_center);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        textView = dialog.findViewById(R.id.txtyes);
+        String email = ed_email.getText().toString();
+        String password = ed_password.getText().toString();
+        if(email.trim().isEmpty() && password.trim().isEmpty()){
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.root_toast));
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+
+            toast.show();
+        } else {
+            login(email , password);
+            dialog.show();
+        }
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
+            }
+        });
     }
 }
