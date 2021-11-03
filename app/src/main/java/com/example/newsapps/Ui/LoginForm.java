@@ -38,7 +38,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginForm extends AppCompatActivity {
-    private TextView textView;
+    private TextView textView, text;
     private Button register, login;
     private GoogleSignInClient mGoogleSignInClient;
     private final static  int RC_SIGN_IN = 123;
@@ -79,11 +79,11 @@ public class LoginForm extends AppCompatActivity {
         createRequest();
     }
     public void login(String email, String password){
+        System.out.println("testing data "+email+", "+password);
         AndroidNetworking.post("https://news-appapi.herokuapp.com/api/login")
                 .addBodyParameter("email", email)
                 .addBodyParameter("password", password)
-                .setTag("test")
-                .setPriority(Priority.MEDIUM)
+                .addHeaders("Content-Type", "application/json")
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
@@ -92,10 +92,7 @@ public class LoginForm extends AppCompatActivity {
                             String status = response.getString("status");
                             String message = response.getString("messages");
                             if(status.contains("Success")) {
-                                Toast.makeText(LoginForm.this, message + " :) ", Toast.LENGTH_SHORT).show();
-                                Intent start = new Intent(LoginForm.this, MainActivity.class);
-                                startActivity(start);
-                                overridePendingTransition(R.anim.fade, R.anim.fade);
+                                dialog.show();
                             } else if(status.contains("Gagal")){
                                 Toast.makeText(LoginForm.this, message + " :( ", Toast.LENGTH_SHORT).show();
                             }
@@ -107,7 +104,7 @@ public class LoginForm extends AppCompatActivity {
                     @Override
                     public void onError(ANError error) {
                         Log.d("","" + error.getErrorDetail());
-                        Log.d(""," "+ error.getMessage());
+                        Log.d(""," "+ error.getErrorBody());
                         Log.d(""," "+ error.getErrorCode());
                         Log.d(""," "+ error.getResponse());
                     }
@@ -190,19 +187,23 @@ public class LoginForm extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_center);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         textView = dialog.findViewById(R.id.txtyes);
+
         String email = ed_email.getText().toString();
         String password = ed_password.getText().toString();
         if(email.trim().isEmpty() && password.trim().isEmpty()){
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.root_toast));
+            text = layout.findViewById(R.id.text);
+            text.setText("Harus di isi Formnya");
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.setView(layout);
 
             toast.show();
         } else {
-            login(email , password);
-            dialog.show();
+            Log.d("testing","data : " + email + password);
+            login(email, password);
+//            dialog.show();
         }
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

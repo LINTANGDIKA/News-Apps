@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">News Apps</string>
     <string-array name="planets_array">
-        <item>Laki-laki</item>
         <item>Perempuan</item>
+        <item>Laki-laki</item>
     </string-array>
 </resources>

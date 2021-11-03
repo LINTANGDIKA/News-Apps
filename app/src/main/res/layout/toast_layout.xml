@@ -24,6 +24,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_toRightOf="@+id/toast_img"
-        android:text="Berhasil menyimpan ke wishlist" />
+        android:text="Berhasil menyimpan ke wishlist"
+        android:id="@+id/text"
+        />
 
 </RelativeLayout>

@@ -136,6 +136,7 @@
             android:layout_height="2dp"/>
 
         <ImageButton
+            android:layout_toLeftOf="@+id/imb_google"
             android:src="@drawable/facebook"
             android:id="@+id/imb_facebook"
             android:layout_width="30dp"
@@ -146,13 +147,13 @@
             android:background="@drawable/circle" />
 
         <ImageButton
+            android:layout_centerHorizontal="true"
             android:id="@+id/imb_google"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_below="@id/tv_lainnya"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
-            android:layout_toRightOf="@id/imb_facebook"
             android:background="@drawable/circle"
             android:src="@drawable/google" />
         <ImageButton
