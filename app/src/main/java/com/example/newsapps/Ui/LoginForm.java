@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -46,7 +49,7 @@ public class LoginForm extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Dialog dialog;
     private EditText ed_email, ed_password;
-
+    private CheckBox ed_rememberme;
     @Override
     protected void onStart() {
         super.onStart();
@@ -75,6 +78,7 @@ public class LoginForm extends AppCompatActivity {
             }
         });
         mAuth = FirebaseAuth.getInstance();
+        middleware();
         navigation();
         createRequest();
     }
@@ -169,10 +173,27 @@ public class LoginForm extends AppCompatActivity {
     private void navigation() {
         register = findViewById(R.id.bt_register);
         login = findViewById(R.id.bt_login);
+        ed_rememberme = findViewById(R.id.ed_rememberme);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toast();
+            }
+        });
+        ed_rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(buttonView.isChecked()){
+                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("remember","true");
+                    editor.apply();
+                } else if(!buttonView.isChecked()){
+                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("remember","false");
+                    editor.apply();
+                }
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
@@ -213,5 +234,15 @@ public class LoginForm extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
+    }
+    private void middleware() {
+        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        String check = preferences.getString("remember","");
+        if(check.equals("true")){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        } else if(check.equals("false")){
+            Toast.makeText(LoginForm.this,  "Maaf Anda Harus Login Dulu :( ", Toast.LENGTH_SHORT).show();
+        }
     }
 }
