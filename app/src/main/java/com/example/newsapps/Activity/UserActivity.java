@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.newsapps.R;
+import com.example.newsapps.Ui.LoginForm;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UserActivity extends AppCompatActivity {
@@ -28,6 +29,8 @@ public class UserActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("remember","false");
                 editor.apply();
+                Intent intent = new Intent(getApplicationContext(), LoginForm.class);
+                startActivity(intent);
                 finish();
             }
         });
