@@ -7,7 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".Ui.LoginForm"
     xmlns:Android="http://schemas.android.com/apk/res-auto">
-
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
     <ImageView
         android:id="@+id/im_login_logo"
         android:layout_width="95dp"
@@ -81,6 +86,7 @@
         android:fontFamily="@font/montserrat"
         android:text="LOGIN"
         android:textColor="@color/white" />
+
     <CheckBox
         android:id="@+id/ed_rememberme"
         android:layout_width="wrap_content"
@@ -88,13 +94,13 @@
         android:layout_below="@id/bt_login"
         android:layout_centerHorizontal="true"
         android:background="#00000000"
-        android:textColor="@color/white"
         android:backgroundTint="#00000000"
-        android:text="Ingat Saya" />
+        android:text="Ingat Saya"
+        android:textColor="@color/white" />
     <RelativeLayout
         android:background="@color/white"
-        android:layout_marginTop="40dp"
-        android:layout_below="@id/bt_login"
+        android:layout_marginTop="115dp"
+        android:layout_below="@id/ed_rememberme"
         android:layout_width="match_parent"
         android:layout_height="222dp">
         <TextView
@@ -118,11 +124,11 @@
             android:text="register"
             android:textColor="@color/white" />
         <TextView
+            android:layout_centerHorizontal="true"
             android:id="@+id/tv_lainnya"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/bt_register"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/nunito_bold"
             android:text="atau menggunakan"
@@ -131,51 +137,32 @@
             android:textStyle="bold" />
         <View
             android:layout_marginRight="3dp"
-            android:layout_toLeftOf="@id/tv_lainnya"
             android:background="#828282"
-            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_lainnya"
+            android:layout_marginTop="105dp"
             android:layout_width="40dp"
             android:layout_height="2dp"/>
         <View
+            android:layout_marginTop="105dp"
             android:layout_marginLeft="3dp"
             android:layout_toRightOf="@id/tv_lainnya"
             android:background="#828282"
-            android:layout_centerVertical="true"
             android:layout_width="40dp"
             android:layout_height="2dp"/>
-
-        <ImageButton
-            android:layout_toLeftOf="@+id/imb_google"
-            android:src="@drawable/facebook"
-            android:id="@+id/imb_facebook"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_below="@id/tv_lainnya"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/circle" />
-
-        <ImageButton
-            android:layout_centerHorizontal="true"
+        <Button
+            android:hint="Google"
+            android:textSize="13dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textStyle="bold"
             android:id="@+id/imb_google"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="110dp"
+            android:layout_height="35dp"
             android:layout_below="@id/tv_lainnya"
-            android:layout_marginLeft="10dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:background="@drawable/circle"
-            android:src="@drawable/google" />
-        <ImageButton
-            android:src="@drawable/twitter"
-            android:id="@+id/imb_twitter"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/circle"
-            android:layout_below="@id/tv_lainnya"
-            android:layout_toRightOf="@id/imb_google"
-            android:layout_marginLeft="10dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
-
+            android:drawableLeft="@drawable/google" />
     </RelativeLayout>
 
 

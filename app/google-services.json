@@ -1,33 +1,42 @@
 {
   "project_info": {
-    "project_number": "940653359299",
-    "project_id": "project-aplikasi-login",
-    "storage_bucket": "project-aplikasi-login.appspot.com"
+    "project_number": "288813297829",
+    "firebase_url": "https://neaapps-default-rtdb.firebaseio.com",
+    "project_id": "neaapps",
+    "storage_bucket": "neaapps.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:940653359299:android:c5d22505d7dc100ae0b276",
+        "mobilesdk_app_id": "1:288813297829:android:159fcabb5208fbafbf1d4c",
         "android_client_info": {
           "package_name": "com.example.newsapps"
         }
       },
       "oauth_client": [
         {
-          "client_id": "940653359299-e1dorrm7dsbrs1q31vkqu6tvoo6gh361.apps.googleusercontent.com",
+          "client_id": "288813297829-0uqjd5hmgfe5ejg95i7u479hq1mqlmof.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newsapps",
+            "certificate_hash": "eed69ff48ce899e6a9fc77869302967384670849"
+          }
+        },
+        {
+          "client_id": "288813297829-31hqi39vhvkr9dgl1hso4vdkd1v5uggs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBIi93nEc9SdXuiAsd2pfNSWMGwCyXewZ8"
+          "current_key": "AIzaSyANiY6OOFD3pdDzCwrR93WjdilF0zuZXwQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "940653359299-e1dorrm7dsbrs1q31vkqu6tvoo6gh361.apps.googleusercontent.com",
+              "client_id": "288813297829-31hqi39vhvkr9dgl1hso4vdkd1v5uggs.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

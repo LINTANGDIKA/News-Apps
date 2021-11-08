@@ -15,6 +15,14 @@
         android:layout_below="@id/navigation_up_favorite">
 
     </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/tv_emptycontent"
+        android:textColor="@color/black"
+        android:layout_centerInParent="true"
+        android:text="TIDAK ADA BERITA FAVORITE HARI INI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         app:elevation="2dp"

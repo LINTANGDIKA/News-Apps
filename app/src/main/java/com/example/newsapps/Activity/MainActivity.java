@@ -13,6 +13,7 @@ import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView search;
     private RecyclerView recyclerView;
     private List<ModelNews> beritautama;
+    private ProgressBar progressBar;
     MainAdapter main;
     String judul, gambar, description, source, date;
     @Override
@@ -109,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private  void getdata() {
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
         beritautama = new ArrayList<>();
         AndroidNetworking.get(API)
                 .addQueryParameter("country", Negara )
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("Response: ", "yes");
+                        progressBar.setVisibility(View.INVISIBLE);
                         try {
                             JSONArray resultArray = response.getJSONArray( "articles");
                             for (int i = 0; i < resultArray.length(); i++) {
@@ -141,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                                      intent.putExtra("image", model.getImage());
                                      intent.putExtra("id", model.getId());
                                      startActivity(intent);
-
+                                     overridePendingTransition(R.anim.fade, R.anim.fade_out);
                                 }
                             });
 

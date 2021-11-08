@@ -14,10 +14,152 @@
         app:labelVisibilityMode="unlabeled"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"/>
-    <Button
-        android:text="Logout"
-        android:id="@+id/logout"
+
+    <RelativeLayout
+        android:id="@+id/rv_header"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:background="@drawable/header">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/nea_logo" />
+
+        <TextView
+            android:id="@+id/tv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="PROFILE"
+            android:textColor="@color/white" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            android:text="LOG OUT"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rv_subheader"
+        android:background="@drawable/header2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/im_profile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/nea_logo" />
+    </RelativeLayout>
+    <ProgressBar
+        android:id="@+id/progres"
+        android:visibility="invisible"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_user_contentname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rv_subheader"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Helo Hisyam"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tv_user_email"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Email"
+        android:layout_below="@+id/tv_user_contentname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_user_contentemail"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="hishisyam80@gmail.com"
+        android:layout_below="@+id/tv_user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_user_notelepon"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="No Telepon"
+        android:layout_below="@+id/tv_user_contentemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_user_contentnotelepon"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="0865741960341"
+        android:layout_below="@+id/tv_user_notelepon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_user_umur"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Umur"
+        android:layout_below="@+id/tv_user_contentnotelepon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_user_contentumur"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="21"
+        android:layout_below="@+id/tv_user_umur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_user_alamat"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Alamat"
+        android:layout_below="@+id/tv_user_contentumur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_user_contentalamat"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Peganjaran"
+        android:layout_below="@+id/tv_user_alamat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
 </RelativeLayout>

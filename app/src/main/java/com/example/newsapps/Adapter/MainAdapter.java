@@ -44,9 +44,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> im
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.date.setText(model.get(position).getDate());
         holder.title.setText(model.get(position).getJudul());
-        Picasso.get()
-                .load(model.get(position).getImage())
-                .error(R.mipmap.ic_launcher_round)
+        Picasso.get().load(model.get(position).getImage())
+                .placeholder(R.drawable.nea_logo_gradient)
+                .error(R.drawable.nea_logo_gradient)
+                .fit()
                 .into(holder.image);
     }
 

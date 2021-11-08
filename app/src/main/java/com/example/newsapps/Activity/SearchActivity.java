@@ -74,6 +74,7 @@ public class SearchActivity extends AppCompatActivity {
                                     intent.putExtra("image", model.getImage());
                                     intent.putExtra("id", model.getId());
                                     startActivity(intent);
+                                    overridePendingTransition(R.anim.fade, R.anim.fade_out);
                                 }
                             });
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchActivity.this);
@@ -99,6 +100,7 @@ public class SearchActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade, R.anim.fade_out);
+                finish();
             }
         });
 

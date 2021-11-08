@@ -63,8 +63,8 @@ public class DetailActivity extends AppCompatActivity {
             date.setText(tanggal);
             Picasso.get()
                     .load(image)
-                    .placeholder(R.mipmap.ic_launcher)
-                    .error(R.mipmap.ic_launcher_round)
+                    .placeholder(R.drawable.nea_logo_gradient)
+                    .error(R.drawable.nea_logo_gradient)
                     .into(img);
 
 
@@ -94,6 +94,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
     }

@@ -20,7 +20,7 @@ public class SplashScreen3 extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent Start =new Intent(SplashScreen3.this, LoginForm.class);
+                Intent Start =new Intent(SplashScreen3.this,  LoginForm.class);
                 startActivity(Start);
                 overridePendingTransition(R.anim.fade, R.anim.fade_out);
                 finish();

@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
@@ -41,25 +42,31 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginForm extends AppCompatActivity {
+    private String clientid = "288813297829-31hqi39vhvkr9dgl1hso4vdkd1v5uggs.apps.googleusercontent.com";
+    private ProgressBar progressBar;
     private TextView textView, text;
+    private CheckBox ed_rememberme;
     private Button register, login;
     private GoogleSignInClient mGoogleSignInClient;
-    private final static  int RC_SIGN_IN = 123;
-    private ImageButton verify;
+    private final static int RC_SIGN_IN = 123;
+    private Button verify;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private Dialog dialog;
     private EditText ed_email, ed_password;
-    private CheckBox ed_rememberme;
+    private String email, password;
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
         if (user != null){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TASK | intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
+            overridePendingTransition(R.anim.fade, R.anim.fade_out);
+            finish();
         }
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,18 +78,20 @@ public class LoginForm extends AppCompatActivity {
         ed_email = findViewById(R.id.ed_email);
         ed_password = findViewById(R.id.ed_password);
         verify = findViewById(R.id.imb_google);
-        verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
+        register = findViewById(R.id.bt_register);
+        progressBar = findViewById(R.id.progress_bar);
+        login = findViewById(R.id.bt_login);
+        ed_rememberme = findViewById(R.id.ed_rememberme);
+        dialog.setContentView(R.layout.dialog_center);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        textView = dialog.findViewById(R.id.txtyes);
         mAuth = FirebaseAuth.getInstance();
         middleware();
         navigation();
         createRequest();
     }
     public void login(String email, String password){
+        progressBar.setVisibility(View.VISIBLE);
         System.out.println("testing data "+email+", "+password);
         AndroidNetworking.post("https://news-appapi.herokuapp.com/api/login")
                 .addBodyParameter("email", email)
@@ -94,12 +103,8 @@ public class LoginForm extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             String status = response.getString("status");
-                            String message = response.getString("messages");
-                            if(status.contains("Success")) {
-                                dialog.show();
-                            } else if(status.contains("Gagal")){
-                                Toast.makeText(LoginForm.this, message + " :( ", Toast.LENGTH_SHORT).show();
-                            }
+                            progressBar.setVisibility(View.INVISIBLE);
+                            dialog.show();
                         }
                         catch (JSONException e){
                             e.printStackTrace();
@@ -107,6 +112,15 @@ public class LoginForm extends AppCompatActivity {
                     }
                     @Override
                     public void onError(ANError error) {
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.toast_layout, findViewById(R.id.root_toast));
+                        text = layout.findViewById(R.id.text);
+                        text.setText("Akun Email atau Password salah");
+                        Toast toast = new Toast(getApplicationContext());
+                        toast.setDuration(Toast.LENGTH_SHORT);
+                        toast.setView(layout);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        toast.show();
                         Log.d("","" + error.getErrorDetail());
                         Log.d(""," "+ error.getErrorBody());
                         Log.d(""," "+ error.getErrorCode());
@@ -119,12 +133,18 @@ public class LoginForm extends AppCompatActivity {
     private void createRequest() {
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(clientid))
                 .requestEmail()
                 .build();
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     }
+
+    private String getString(String clientid) {
+        this.clientid = clientid;
+        return clientid;
+    }
+
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -132,22 +152,18 @@ public class LoginForm extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             Log.d("","" + task + data + ApiException.class);
-
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
+                Toast.makeText(getApplicationContext(), "Berhasil Login", Toast.LENGTH_SHORT).show();
             } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 Log.d("", "Google : " + e);
-                Toast.makeText(this, "gagal login", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -159,7 +175,7 @@ public class LoginForm extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                         } else {
@@ -168,32 +184,31 @@ public class LoginForm extends AppCompatActivity {
                     }
                 });
     }
-
-
     private void navigation() {
-        register = findViewById(R.id.bt_register);
-        login = findViewById(R.id.bt_login);
-        ed_rememberme = findViewById(R.id.ed_rememberme);
+        ed_rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(buttonView.isChecked()){
+                    editor.putString("remember","true");
+                    editor.apply();
+                } else if(!buttonView.isChecked()){
+                    editor.putString("remember","false");
+                    editor.apply();
+                }
+            }
+        });
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toast();
-            }
-        });
-        ed_rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(buttonView.isChecked()){
-                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("remember","true");
-                    editor.apply();
-                } else if(!buttonView.isChecked()){
-                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("remember","false");
-                    editor.apply();
-                }
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
@@ -205,12 +220,9 @@ public class LoginForm extends AppCompatActivity {
         });
     }
     private void toast() {
-        dialog.setContentView(R.layout.dialog_center);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        textView = dialog.findViewById(R.id.txtyes);
+        email = ed_email.getText().toString();
+        password = ed_password.getText().toString();
 
-        String email = ed_email.getText().toString();
-        String password = ed_password.getText().toString();
         if(email.trim().isEmpty() && password.trim().isEmpty()){
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.root_toast));
@@ -219,30 +231,29 @@ public class LoginForm extends AppCompatActivity {
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.setView(layout);
-
             toast.show();
         } else {
             Log.d("testing","data : " + email + password);
             login(email, password);
-//            dialog.show();
         }
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade, R.anim.fade_out);
+                finish();
             }
         });
     }
-    private void middleware() {
+    public void middleware() {
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String check = preferences.getString("remember","");
         if(check.equals("true")){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         } else if(check.equals("false")){
-            Toast.makeText(LoginForm.this,  "Maaf Anda Harus Login Dulu :( ", Toast.LENGTH_SHORT).show();
         }
     }
 }

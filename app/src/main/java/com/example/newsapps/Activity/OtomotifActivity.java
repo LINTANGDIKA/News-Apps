@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -37,6 +38,7 @@ public class OtomotifActivity extends AppCompatActivity {
     private String API = "https://newsapi.org/v2/top-headlines";
     private String Api_key = "70c9c73cd4764e449efbf91d4fd3a065";
     private String Negara = "id";
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,8 @@ public class OtomotifActivity extends AppCompatActivity {
         navigation();
     }
     private void getData() {
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
         modelbusiness = new ArrayList<>();
         AndroidNetworking.get(API)
                 .addQueryParameter("country", Negara )
@@ -56,6 +60,7 @@ public class OtomotifActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("Response: ", "yes");
+                        progressBar.setVisibility(View.INVISIBLE);
                         try {
                             JSONArray resultArray = response.getJSONArray( "articles");
                             for (int i = 0; i < resultArray.length(); i++) {
@@ -79,6 +84,7 @@ public class OtomotifActivity extends AppCompatActivity {
                                     intent.putExtra("source", model.getSource());
                                     intent.putExtra("image", model.getImage());
                                     startActivity(intent);
+                                    overridePendingTransition(R.anim.fade, R.anim.fade_out);
                                 }
                             });
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(OtomotifActivity.this);
@@ -105,14 +111,17 @@ public class OtomotifActivity extends AppCompatActivity {
                     case R.id.Berita_utama:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.Sport:
                         startActivity(new Intent(getApplicationContext(), SportActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return  true;
                     case R.id.Health:
                         startActivity(new Intent(getApplicationContext(), HealthActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                 }
                 return false;
@@ -127,14 +136,17 @@ public class OtomotifActivity extends AppCompatActivity {
                     case R.id.Favorite:
                         startActivity(new Intent(getApplicationContext(), FavoriteActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.Trnding:
                         startActivity(new Intent(getApplicationContext(), TrendingActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return  true;
                     case R.id.User:
                         startActivity(new Intent(getApplicationContext(), UserActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                 }
                 return false;
@@ -147,6 +159,7 @@ public class OtomotifActivity extends AppCompatActivity {
                 Intent mulai = new Intent(OtomotifActivity.this, SearchActivity.class);
                 startActivity(mulai);
                 overridePendingTransition(R.anim.fade, R.anim.fade_out);
+                finish();
             }
         });
     }
