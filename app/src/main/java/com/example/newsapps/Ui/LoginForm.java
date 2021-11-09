@@ -96,15 +96,16 @@ public class LoginForm extends AppCompatActivity {
         AndroidNetworking.post("https://news-appapi.herokuapp.com/api/login")
                 .addBodyParameter("email", email)
                 .addBodyParameter("password", password)
-                .addHeaders("Content-Type", "application/json")
+                .addHeaders("Content-Type", "x-www-form-urlencoded")
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             String status = response.getString("status");
+                            String data = response.getString("data");
                             progressBar.setVisibility(View.INVISIBLE);
-                            dialog.show();
+//                            dialog.show();
                         }
                         catch (JSONException e){
                             e.printStackTrace();
@@ -186,14 +187,16 @@ public class LoginForm extends AppCompatActivity {
     }
     private void navigation() {
         ed_rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView.isChecked()){
+                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("remember","true");
                     editor.apply();
                 } else if(!buttonView.isChecked()){
+                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("remember","false");
                     editor.apply();
                 }
@@ -222,7 +225,6 @@ public class LoginForm extends AppCompatActivity {
     private void toast() {
         email = ed_email.getText().toString();
         password = ed_password.getText().toString();
-
         if(email.trim().isEmpty() && password.trim().isEmpty()){
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.root_toast));
@@ -247,13 +249,14 @@ public class LoginForm extends AppCompatActivity {
             }
         });
     }
-    public void middleware() {
+    private void middleware() {
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String check = preferences.getString("remember","");
         if(check.equals("true")){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         } else if(check.equals("false")){
+            Toast.makeText(LoginForm.this,  "Maaf Anda Harus Login Dulu :( ", Toast.LENGTH_SHORT).show();
         }
     }
 }

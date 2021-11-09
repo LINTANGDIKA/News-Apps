@@ -4,10 +4,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -75,21 +77,32 @@ public class UserActivity extends AppCompatActivity {
             txtalamat.setVisibility(View.INVISIBLE);
             txtnotelepon.setVisibility(View.INVISIBLE);
         }
+
+
         //action tombol logout
         logout.setOnClickListener(new View.OnClickListener() {
+
+            SharedPreferences sharedPref = getSharedPreferences("remember", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            String check = sharedPref.getString("remember","");
             @Override
             public void onClick(View v) {
                 FirebaseUser user;
                 user = mAuth.getCurrentUser();
+                Intent intent = new Intent(getApplicationContext(), LoginForm.class);
                 if (user != null) {
                     FirebaseAuth.getInstance().signOut();
                     dialog.show();
+                    startActivity(intent);
+                    finish();
+                } else if(check.equals("true")){
+                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("remember","false");
+                    editor.apply();
+                    startActivity(intent);
+                    finish();
                 }
-//                }else  if (){
-//                    Intent intent = new Intent(getApplicationContext(), LoginForm.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
 
             }
         });
