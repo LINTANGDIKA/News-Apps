@@ -90,19 +90,14 @@ public class UserActivity extends AppCompatActivity {
                 FirebaseUser user;
                 user = mAuth.getCurrentUser();
                 Intent intent = new Intent(getApplicationContext(), LoginForm.class);
-                if (user != null) {
-                    FirebaseAuth.getInstance().signOut();
-                    dialog.show();
-                    startActivity(intent);
-                    finish();
-                } else if(check.equals("true")){
+
                     SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("remember","false");
                     editor.apply();
                     startActivity(intent);
                     finish();
-                }
+
 
             }
         });

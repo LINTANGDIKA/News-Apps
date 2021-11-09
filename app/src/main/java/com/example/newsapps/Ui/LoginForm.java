@@ -105,7 +105,7 @@ public class LoginForm extends AppCompatActivity {
                             String status = response.getString("status");
                             String data = response.getString("data");
                             progressBar.setVisibility(View.INVISIBLE);
-//                            dialog.show();
+                            dialog.show();
                         }
                         catch (JSONException e){
                             e.printStackTrace();
